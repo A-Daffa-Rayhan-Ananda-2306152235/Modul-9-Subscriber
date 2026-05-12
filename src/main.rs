@@ -19,8 +19,7 @@ impl MessageHandler<UserCreatedEventMessage> for UserCreatedHandler {
 
         // thread::sleep(ten_millis);
 
-        println!("In Daffa's Computer [2306152235]. Message received: {:?}", 
-message);
+        println!("In Daffa's Computer [2306152235]. Message received: {:?}", message);
         Ok(())
     }
 
@@ -30,13 +29,15 @@ message);
 }
 
 fn main() {
-    let listener = 
-CrosstownBus::new_queue_listener("amqp://guest:guest@localhost:5672".to_owned()
-).unwrap();
+    let listener = CrosstownBus::new_queue_listener(
+        "amqp://guest:guest@localhost:5672".to_owned()
+    ).unwrap();
     
-    _ = listener.listen("user_created".to_owned(), UserCreatedHandler{},
-crosstown_bus::QueueProperties { auto_delete: false, durable: false, 
-use_dead_letter: true});
+    _ = listener.listen(
+        "user_created".to_owned(), 
+        UserCreatedHandler{},
+        crosstown_bus::QueueProperties { auto_delete: false, durable: false, use_dead_letter: true}
+    );
 
     loop {
     }
