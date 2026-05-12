@@ -26,3 +26,15 @@ Here is the exact breakdown of each part:
 The Queued Messages spikes represent the response speed of the subscriber. Because we slowed it down by adding `thread::sleep(ten_millis);` to it, the subscriber responds slower now.
 
 After running publisher 4 times consecutively, the Queued Messages spikes peaked at 10 on my machine. That means the message queue were filled with a maximum of 10 messages when processing all 20 messages from the publisher.
+
+### Multiple Subscriber Simulation
+
+- **Subscriber Consoles**
+![consoles](images/multiple-subscriber.png)
+
+- **Spike Chart**
+![spike](images/multiple-subscriber-spike.png)
+
+After running 3 subscriber instances at the same time, the subscriber response speed is much faster. I run the publisher app consecutively 4 times like before, but the Queued Messages spike chart only peaked at 5.
+
+We can see in the 3 subscriber consoles, the event processing is splitted. Each sent message is only responded by one of the 3 subscriber instances. This is what makes the event processing is much faster.
