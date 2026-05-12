@@ -17,3 +17,12 @@ Here is the exact breakdown of each part:
 * **`localhost:5672`:** This specifies **where** the message broker is running.
     * `localhost` means the broker is running on your local machine.
     * `5672` is the standard default **port number** that RabbitMQ uses to listen for incoming AMQP connections.
+
+
+### Slow Subscriber Simulation
+
+![slow](images/slow-subscriber.png)
+
+The Queued Messages spikes represent the response speed of the subscriber. Because we slowed it down by adding `thread::sleep(ten_millis);` to it, the subscriber responds slower now.
+
+After running publisher 4 times consecutively, the Queued Messages spikes peaked at 10 on my machine. That means the message queue were filled with a maximum of 10 messages when processing all 20 messages from the publisher.
